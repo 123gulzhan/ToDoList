@@ -17,4 +17,8 @@
       <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Views\Tasks" />
+    </ItemGroup>
+
 </Project>
