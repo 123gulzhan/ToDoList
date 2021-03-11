@@ -1,0 +1,49 @@
+﻿@using ToDoList.Enums
+@model ToDoList.Models.Task
+
+@{
+    ViewBag.Title = "Новая задача";
+    Layout = "_Layout";
+}
+
+<h4>@ViewBag.Title</h4>
+<form asp-action="Create" asp-controller="Tasks" method="post">
+    <div class="form-row my-2">
+        <label>
+            <h6>Название задачи</h6>
+            <input asp-for="Header" type="text">
+        </label>
+    </div>
+    <div class="form-row my-2">
+        <label>
+            <h6>Имя исполнителя</h6>
+            <input asp-for="ExecutorName" type="text">
+        </label>
+    </div>
+    <div class="form-row my-2">
+        <label>
+            <h6>Приоритет</h6>
+            <select asp-for="Priority">
+                @foreach (var priority in ViewBag.Priorities)
+                {
+                    <option value="@priority">@priority</option>
+                }
+            </select>
+            <span asp-validation-for="Priority"></span>
+        </label>
+    </div>
+    <div class="form-row my-2">
+        <label>
+            <h6>Описание задачи</h6>
+            <textarea asp-for="Description" placeholder="Подробное описание" rows="3" cols="40"></textarea>
+        </label>
+    </div>
+    <button class="btn btn-secondary" type="submit">Добавить задачу</button>
+</form>
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

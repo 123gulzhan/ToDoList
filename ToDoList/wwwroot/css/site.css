@@ -57,7 +57,9 @@ html {
   position: relative;
   min-height: 100%;
 }
-
+*{
+  font-family: 'Comic Neue', cursive;
+}
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;

@@ -1,0 +1,76 @@
+﻿@using ToDoList.Enums
+@model ToDoList.Models.Task
+
+@{
+    ViewBag.Title = "Информация о задаче";
+    Layout = "_Layout";
+}
+@{
+    var priorityColor = Model.Priority switch
+    {
+        Priority.Высокий => "text-danger",
+        Priority.Средний => "text-primary",
+        Priority.Низкий => "text-success"
+        };
+}
+ 
+<div class="card">
+    <div class="card-header">
+        <h4>@Model.Header</h4>
+        <p style="font-size: 14px; color: darkcyan; font-weight: bold;">Исполнитель: @Model.ExecutorName</p>
+    </div>
+    <div class="card-body py-0">
+        <div class="row d-flex flex-row">
+            <div class="col-md-4" style="border-right: 1px solid lightgrey;">
+                <div class="row d-flex flex-row px-0">
+                    <div class="col-md-6 pt-2" style="border-right: 1px solid lightgrey;">
+                        <p>Статус</p>
+                        <p>Приоритет</p>
+                        <p>Номер</p>
+                        @if (Model.Status != Status.Новая){<p>Дата открытия: </p>}
+                        @if (Model.Status == Status.Закрытая){<p>Дата закрытия: </p>}
+                    </div>
+                    <div class="col-md-6 pt-2">
+                        <p>@Model.Status</p>
+                        <p class="@priorityColor">@Model.Priority</p>
+                        <p>@Model.Id</p>
+                        @if (Model.Status != Status.Новая){<p>@Model.CreationAt.ToShortDateString()</p>}
+                        @if (Model.Status == Status.Закрытая){<p>
+                                                                  @if (Model.ExpirationAt != null)
+                                                                  {
+                                                                      @Model.ExpirationAt.Value.Date.ToShortDateString()
+                                                                  }
+                                                              </p>}
+                    </div>
+                    
+                    <div class="col-md-12 px-0 pb-2">
+                        <hr class="m-0 px-0 pb-2" style="color: lightgrey;">
+                        <div class="d-flex flex-row justify-content-around">
+                        @if (Model.Status != Status.Открытая)
+                        {
+                            <a asp-action="Delete" asp-route-id="@Model.Id"><button class="btn btn-light" 
+                                    style="border: 1px solid gray; background:lightgray;">Удалить</button></a>
+                        }
+                        @if (Model.Status == Status.Новая)
+                        {
+                            <a asp-action="ChangeStatus" asp-route-id="@Model.Id" asp-route-status="Open">
+                                <button class="btn btn-light" style="border: 1px solid gray; background:lightgray;">Открыть</button>
+                            </a>
+                        }
+                        @if (Model.Status == Status.Открытая)
+                        {
+                            <a asp-action="ChangeStatus" asp-route-id="@Model.Id" asp-route-status="Close">
+                                <button class="btn btn-light" style="border: 1px solid gray; background:lightgray;">Закрыть</button>
+                            </a>
+                        }
+                    </div></div>
+                </div>
+            </div>
+            <div class="col-md-8 pt-2">
+                <h6>Описание задачи</h6>
+                <p>@Model.Description</p>
+            </div>
+        </div>
+      
+    </div>
+</div>
