@@ -178,14 +178,14 @@ namespace ToDoList.Controllers
 
             if (model.CreationFrom.Date != DateTime.Parse("01.01.0001"))
             {
-                model.Tasks = model.Tasks.Where(t => t.CreationAt.Date >= Convert.ToDateTime(model.CreationFrom.Date))
-                    .ToList();
+                model.Tasks = model.Tasks.Where(t => t.CreationAt.Date >= Convert
+                        .ToDateTime(model.CreationFrom.Date)).ToList();
             }
 
             if (model.CreationTo.Date != DateTime.Parse("01.01.0001"))
             {
-                model.Tasks = model.Tasks.Where(t => t.CreationAt <= Convert.ToDateTime(model.CreationTo.Date))
-                    .ToList();
+                model.Tasks = model.Tasks.Where(t => t.CreationAt <= Convert
+                        .ToDateTime(model.CreationTo.Date)).ToList();
             }
 
             if(model.Priority != Priority.Все)
